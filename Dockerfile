@@ -1,6 +1,6 @@
 FROM debian:wheezy
 
-MAINTAINER Suchipi Izumi "me@suchipi.com"
+MAINTAINER John Day "jkday@inafish.net"
 
 # ------------
 # Prepare Gmod
@@ -35,8 +35,8 @@ RUN cp /gmod-base/bin/libsteam.so /root/.steam/sdk32
 # Download and install Ulysses
 # ----------------------
 
-WORKDIR /tmp
-RUN git clone https://github.com/Nayruden/Ulysses.git
+WORKDIR /
+RUN git clone https://github.com/Nayruden/Ulysses.git /tmp/Ulysses
 RUN cp -rp /tmp/Ulysses/{ulib,ulx} /gmod-base/garrysmod/addons/
 RUN rm -rf /tmp/Ulysses
 
