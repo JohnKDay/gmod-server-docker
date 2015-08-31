@@ -37,9 +37,9 @@ RUN cp /gmod-base/bin/libsteam.so /root/.steam/sdk32
 
 WORKDIR /
 RUN git clone https://github.com/Nayruden/Ulysses.git /tmp/Ulysses
-COPY /tmp/Ulysses/ulib /gmod-base/garrysmod/addons/
-COPY /tmp/Ulysses/ulx /gmod-base/garrysmod/addons/
-RUN rm -rf /tmp/Ulysses
+RUN "cp -rp /tmp/Ulysses/ulib /gmod-base/garrysmod/addons"
+RUN "cp -rp /tmp/Ulysses/ulx /gmod-base/garrysmod/addons"
+RUN "rm -rf /tmp/Ulysses"
 
 # ----------------------
 # Setup Volume and Union
