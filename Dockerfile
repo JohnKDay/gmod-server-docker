@@ -32,6 +32,15 @@ RUN mkdir /root/.steam/sdk32/
 RUN cp /gmod-base/bin/libsteam.so /root/.steam/sdk32
 
 # ----------------------
+# Download and install Ulysses
+# ----------------------
+
+WORKDIR /tmp
+RUN git clone https://github.com/Nayruden/Ulysses.git
+RUN cp -rp /tmp/Ulysses/{ulib,ulx} /gmod-base/garrysmod/addons/
+RUN rm -rf /tmp/Ulysses
+
+# ----------------------
 # Setup Volume and Union
 # ----------------------
 
