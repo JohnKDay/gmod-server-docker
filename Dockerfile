@@ -37,7 +37,8 @@ RUN cp /gmod-base/bin/libsteam.so /root/.steam/sdk32
 
 WORKDIR /
 RUN git clone https://github.com/Nayruden/Ulysses.git /tmp/Ulysses
-COPY /tmp/Ulysses/{ulib,ulx} /gmod-base/garrysmod/addons/
+COPY /tmp/Ulysses/ulib /gmod-base/garrysmod/addons/
+COPY /tmp/Ulysses/ulx /gmod-base/garrysmod/addons/
 RUN rm -rf /tmp/Ulysses
 
 # ----------------------
