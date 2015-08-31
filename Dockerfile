@@ -6,7 +6,7 @@ MAINTAINER Suchipi Izumi "me@suchipi.com"
 # Prepare Gmod
 # ------------
 
-RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get -y install lib32gcc1 wget
+RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get -y install lib32gcc1 wget git
 RUN mkdir /steamcmd
 WORKDIR /steamcmd
 RUN wget http://media.steampowered.com/installer/steamcmd_linux.tar.gz
