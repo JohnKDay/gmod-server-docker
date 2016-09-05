@@ -56,6 +56,9 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get -y install unionfs-fuse
 
 ADD start-server.sh /start-server.sh
 EXPOSE 27015/udp
+EXPOSE 27015/tcp
+EXPOSE 27005/udp
+EXPOSE 27006/tcp
 
 ENV PORT="27015"
 ENV MAXPLAYERS="16"
