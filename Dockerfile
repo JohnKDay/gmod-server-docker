@@ -27,9 +27,9 @@ WORKDIR /
 RUN rm -rf /gmod-libs
 RUN cp /steamcmd/linux32/libstdc++.so.6 /gmod-base/bin/
 
-RUN mkdir /root/.steam
-RUN mkdir /root/.steam/sdk32/
-RUN cp /gmod-base/bin/libsteam.so /root/.steam/sdk32
+#RUN mkdir /root/.steam
+#RUN mkdir /root/.steam/sdk32/
+#RUN cp /gmod-base/bin/libsteam.so /root/.steam/sdk32
 
 # ----------------------
 # Download and install Ulysses
@@ -48,13 +48,15 @@ RUN rm -rf /tmp/Ulysses
 RUN mkdir /gmod-volume
 VOLUME /gmod-volume
 RUN mkdir /gmod-union
-RUN DEBIAN_FRONTEND=noninteractive apt-get -y install unionfs-fuse
+RUN DEBIAN_FRONTEND=noninteractive apt-get -y install unionfs-fuse 
+
 
 # ---------------
 # Setup Container
 # ---------------
 
 ADD start-server.sh /start-server.sh
+ADD entry.sh /entry.sh
 EXPOSE 27015/udp
 EXPOSE 27015/tcp
 EXPOSE 27005/udp
@@ -66,4 +68,18 @@ ENV G_HOSTNAME="Garry's Mod"
 ENV GAMEMODE="sandbox"
 ENV MAP="gm_construct"
 
-CMD ["/bin/sh", "/start-server.sh"]
+RUN DEBIAN_FRONTEND=noninteractive apt-get -y install sudo supervisor openssh-server
+RUN rm -rf /var/lib/apt/lists/* && \
+    mkdir -p /var/run/sshd /var/log/supervisor && \
+    rm -f /etc/ssh/ssh_host_*key*
+
+COPY sshd_config /etc/ssh/sshd_config
+COPY entrypoint /
+COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
+
+EXPOSE 22
+
+
+#CMD ["/bin/sh", "/entry.sh"]
+#CMD ["/bin/sh", "/start-server.sh"]
+CMD ["/usr/bin/supervisord"]
